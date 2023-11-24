@@ -1,0 +1,68 @@
+/* eslint-disable react/prop-types */
+import React from "react";
+import { BsArrowRight } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import starIcon from "../../assets/images/Star.png";
+import { useParams } from "react-router-dom";
+import { doctors } from "../../assets/data/doctors";
+
+const DoctorDetails = () => {
+  const { id } = useParams();
+  const doctor = doctors.find((doc) => doc.id === parseInt(id, 10));
+
+  const pathTo = `/doctors/${id}`;
+
+  return (
+    <section>
+      <div className="p-3 lg:p-5 ">
+        <img
+          src={doctor.photo}
+          style={{
+            borderRadius: 20,
+            boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.8)",
+          }}
+          className="w-full"
+          alt=""
+        />
+        <h2 className="text-18[px] leading-[30px] lg:text-[26px] lg:leading-9 text-headingColor font-[700] mt-3 lg:mt-5">
+          {doctor.name}
+        </h2>
+        <div className="mt-2 lg:mt-4 flex items-center justify-between">
+          <span className="bg-[#CCF0F3] text-irisBlueColor py-1 px-2 lg:py-2 lg:px-6 text-[18px] leading-4 lg:text-[16px] lg:leading-7 font-semibold rounded">
+            {doctor}
+          </span>
+          <div className="flex items-center gap-[6px]">
+            <span className="flex items-center gap-[6px] text-[14px] leading-6 lg:text-[16px] leading -7 font-semibold text-headingColor">
+              <img src={starIcon} alt="" />
+              {doctor.avgRating}
+            </span>
+            <span className="text-[14px] leading-6 lg:text-[16px] lg:leading-7 font-[400] text-textColor">
+              ({doctor.totalRating})
+            </span>
+          </div>
+        </div>
+        <div className="mt-[18px] lg:mt-5 flex items-center justify-between">
+          <div>
+            <h3 className="text-[16px] leading-7 lg:text-[18px] lg:leading-[30px] font-semibold text-headingColor">
+              + {doctor.totalPatients} Ïàö³ºíò³â
+            </h3>
+            <p className="text-[14px] leading-6 font-[400] text-textColor">
+              {doctor.hospital}
+            </p>
+          </div>
+          <Link
+            to={pathTo}
+            className="w-[44px] h-[44px] rounded-full border
+                     border-solid border-[#181A1E] mt-[30px] mx-auto 
+                     flex items-center justify-center group
+                      hover:bg-primaryColor hover:border-none"
+          >
+            <BsArrowRight />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default DoctorDetails;
